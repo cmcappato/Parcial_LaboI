@@ -14,7 +14,6 @@
 	G) Ingresar el nombre de un juego e imprimir cuantos arcades lo contienen.
 */
 
-
 #ifndef INFORMES_H_INCLUDED
 #define INFORMES_H_INCLUDED
 #include <stdio.h>
@@ -24,7 +23,10 @@
 #include "utn.h"
 #include "SalonesConArcades.h"
 
-
+/**
+ * Imprime el submenu de informes
+ * @return Devuelve la opcion ingresada por el usuario
+ */
 int submenuDeInformes();
 
 /**
@@ -37,7 +39,7 @@ int submenuDeInformes();
  */
 int salonesConMasDeCuatroArcades(eSalon* listaSalones, eArcade* listaArcades, int lenSalones, int lenArcades);
 
-int arcadesParaMasDeDosJugadores();
+int arcadesParaMasDeDosJugadores(eSalon* listaSalones, eArcade* listaArcades, int lenSalones, int lenArcades);
 
 int infoDeSalonPorID();
 
@@ -49,6 +51,14 @@ int montoMaximoPosible();
 
 int cantidadDeJuegos();
 
-
+/**
+ * Calcula el promedio de arcades que hay por salon
+ * @param listaSalones
+ * @param listaArcades
+ * @param lenSalones
+ * @param lenArcades
+ * @return
+ */
+int promedioDeArcades(eSalon* listaSalones, eArcade* listaArcades, int lenSalones, int lenArcades);
 
 #endif

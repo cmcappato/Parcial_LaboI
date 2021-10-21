@@ -5,7 +5,8 @@
 #include <string.h>
 #include <conio.h>
 #include "utn.h"
-#include "SalonesConArcades.h"
+#include "Salones.h"
+#include "Arcades.h"
 
 /**
  *

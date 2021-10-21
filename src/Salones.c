@@ -40,6 +40,7 @@ int inicializarSalones(eSalon* listaSalones, int len)
 		{
 			listaSalones[i].isEmpty = 1;
 		}
+
 		retorno = 0;
 	}
 
