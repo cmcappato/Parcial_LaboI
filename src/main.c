@@ -14,11 +14,10 @@
 #include "utn.h"
 #include "Salones.h"
 #include "Arcades.h"
-#include "Juegos.h"
+#include "SalonesConArcades.h"
 #include "Informes.h"
 #define CANTIDAD_SALONES 100
 #define CANTIDAD_ARCADES 1000
-
 
 int main(void) {
 	setbuf(stdout, NULL);
@@ -26,11 +25,12 @@ int main(void) {
 	eSalon salones[CANTIDAD_SALONES];
 	eArcade arcades[CANTIDAD_ARCADES];
 
-	int salonVacio;
+	int salonVacio, arcadeVacio;
 	int flagSalon = 0, flagArcade = 0;
 	char continuar = 's';
 
 	inicializarSalones(salones, CANTIDAD_SALONES);
+	inicializarArcades(arcades, CANTIDAD_ARCADES);
 
 	do
 	{
@@ -51,7 +51,7 @@ int main(void) {
 			case 2:
 				if(flagSalon == 1)
 				{
-					eliminarSalon(salones, CANTIDAD_SALONES, salonVacio);
+					eliminarSalonConArcades(salones, arcades, CANTIDAD_SALONES, CANTIDAD_ARCADES, salonVacio);
 				}
 				else
 				{
@@ -68,28 +68,52 @@ int main(void) {
 					printf("No hay salones para mostrar\n");
 				}
 				break;
+			case 4:
+				flagArcade = 1;
+				arcadeVacio = buscarEspacioLibreArcades(arcades, CANTIDAD_ARCADES);
+				if(arcadeVacio != -1)
+				{
+					agregarArcadeConSalon(arcades, salones, CANTIDAD_ARCADES, CANTIDAD_SALONES);
+				}
+				else
+				{
+					printf("No hay espacio para agregar un arcade");
+				}
+				break;
+			case 6:
+				if(flagArcade == 1)
+				{
+					eliminarArcade(arcades, CANTIDAD_ARCADES, arcadeVacio);
+				}
+				else
+				{
+					printf("No hay arcades para eliminar\n");
+				}
+				break;
+			case 7:
+				if(flagArcade == 1)
+				{
+					mostrarArcades(arcades, CANTIDAD_ARCADES);
+				}
+				else
+				{
+					printf("No hay arcades para mostrar\n");
+				}
+				break;
 			default:
 				break;
+			case 10:
+				harcodearSalones(salones, CANTIDAD_SALONES);
+				harcodearArcades(arcades, CANTIDAD_ARCADES);
+				flagArcade = 1;
+				flagSalon = 1;
+				break;
+			case 11:
+				printf("Gracias por utilizar el programa \n");
+				continuar = 'n';
+				break;
 		}
+	} while(continuar == 's');
 
-	}while(continuar == 's');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	return EXIT_SUCCESS;
+	return 0;
 }

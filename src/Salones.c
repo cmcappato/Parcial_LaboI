@@ -1,8 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <conio.h>
-#include "utn.h"
 #include "Salones.h"
 
 static int generarIdSalon()
@@ -16,7 +11,7 @@ int menuDeOpciones()
 {
 	int opcion;
 
-	printf("********************************\n");
+	printf("-------------------------------------------------------------------------------------------------------------\n");
 	printf("SALONES:\n");
 	printf("1- Alta de salón \t 2- Eliminar salón \t 3- Listar salones\n");
 	printf("ARCADES:\n");
@@ -25,10 +20,10 @@ int menuDeOpciones()
 	printf("8- Listar juegos\n");
 	printf("INFORMES:\n");
 	printf("9- Ingresar al menú de informes\n");
-	printf("0- Salir\n");
-	printf("--------------------------------\n");
+	printf("10- Harcodear datos\n");
+	printf("11- Salir\n");
+	printf("------------------------------------------------------------------------------------------------\n");
 	printf("Elija una opcion:\n");
-	printf("********************************\n");
 	fflush(stdin);
 	scanf("%d", &opcion);
 
@@ -103,9 +98,9 @@ int mostrarUnSalon(eSalon* listaSalones, int index)
 		if(listaSalones[index].isEmpty == 0)
 		{
 			if(listaSalones[index].tipoDeSalon == 0)
-				printf("ID: %d\t    NOMBRE: %s\t    DIRECCION: %s\t	LOCAL\t \n\n", listaSalones[index].ID, listaSalones[index].nombre, listaSalones[index].direccion);
+				printf("ID: %d\t    NOMBRE: %s\t    DIRECCION: %s\t	LOCAL\n", listaSalones[index].ID, listaSalones[index].nombre, listaSalones[index].direccion);
 			else if(listaSalones[index].tipoDeSalon == 1)
-				printf("ID: %d\t    NOMBRE: %s\t    DIRECCION: %s\t	SHOPPING\t \n\n", listaSalones[index].ID, listaSalones[index].nombre, listaSalones[index].direccion);
+				printf("ID: %d\t    NOMBRE: %s\t    DIRECCION: %s\t	SHOPPING\n", listaSalones[index].ID, listaSalones[index].nombre, listaSalones[index].direccion);
 
 			retorno = 0;
 		}
@@ -127,7 +122,6 @@ int mostrarSalones(eSalon* listaSalones, int len)
             	mostrarUnSalon(listaSalones, i);
             	retorno = 0;
             }
-
         }
     }
     return retorno;
@@ -141,14 +135,15 @@ int buscarSalonPorID(eSalon* listaSalones, int len, int id)
 	{
 		for(int i = 0; i < len; i++)
 		{
-			if(listaSalones[i].ID == id && listaSalones[i].isEmpty == 0)
+			if(listaSalones[i].ID == id)
 			{
 				retorno = i;
 				break;
 			}
 			else
 			{
-				printf("No se encontró ese ID");
+				printf("No se encontró ese ID\n");
+				break;
 			}
 		}
 	}
@@ -156,42 +151,3 @@ int buscarSalonPorID(eSalon* listaSalones, int len, int id)
 	return retorno;
 }
 
-int eliminarSalon(eSalon* listaSalones, int len, int id)
-{
-	int retorno = -1;
-	int index;
-	char pregunta;
-
-	if(listaSalones != NULL)
-	{
-		mostrarSalones(listaSalones, len);
-		printf("Ingrese el ID del salon que desea eliminar: \n");
-		scanf("%d", &id);
-		index = buscarSalonPorID(listaSalones, len, id);
-
-		if(index == -1)
-		{
-			printf("Ese ID no existe \n");
-		}
-		else
-		{
-			mostrarUnSalon(listaSalones, index);
-			printf("Está seguro que desea eliminar este juego? S/N: ");
-			fflush(stdin);
-			scanf("%c", &pregunta);
-			if(pregunta == 's' || pregunta == 'S')
-			{
-				printf("Salon eliminado\n");
-				listaSalones[index].isEmpty = 1;
-			}
-			else
-			{
-				printf("No se elimino el salon\n");
-			}
-		}
-
-		retorno = 0;
-	}
-
-	return retorno;
-}
